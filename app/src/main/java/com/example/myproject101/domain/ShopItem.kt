@@ -1,0 +1,12 @@
+package com.example.myproject101.domain
+
+data class ShopItem (
+    val name: String,
+    val count: Int,
+    val isEnabled: Boolean,
+    val id: Int = UNDEFINED_ID
+    ){
+    companion object{
+        const val UNDEFINED_ID = -1
+    }
+}
