@@ -16,9 +16,9 @@ class MainViewModel : ViewModel() {
     private val editeShopItemUseCase = EditeShopItemUseCase(repository)
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
 
-    private val _shopList: LiveData<List<ShopItem>>
+    val _shopList: LiveData<List<ShopItem>>
         get() = shopList
 
-    val shopList = MutableLiveData<List<ShopItem>>()
+    private val shopList = getShopList.getShopList()
 
 }
