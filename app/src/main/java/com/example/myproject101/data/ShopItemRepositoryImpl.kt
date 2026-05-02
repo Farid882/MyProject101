@@ -1,27 +1,50 @@
 package com.example.myproject101.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.myproject101.domain.ShopItem
 import com.example.myproject101.domain.ShopListRepository
 
-class ShopItemRepositoryImpl: ShopListRepository {
+object ShopItemRepositoryImpl : ShopListRepository {
+    //private val shopList = sortedSetOf<ShopItem>({ o1, o2 -> o1.id.compareTo(o2.id) })
+    private val shopList = sortedSetOf(compareBy(ShopItem::id))
+    var autoIncrementId = 0
+    private val shopListLd = MutableLiveData<List<ShopItem>>()
+
+    init {
+        for (i in 0..1000) {
+            val item = ShopItem(name = "Name", i, isEnabled = true)
+            shopList.add(item)
+        }
+    }
+
     override fun addShopItem(shopItem: ShopItem) {
-        TODO("Not yet implemented")
+        if (shopItem.id == ShopItem.UNDEFINED_ID) {
+            shopItem.id = autoIncrementId++
+        }
+        shopList.add(shopItem)
     }
 
     override fun deleteShopItem(shopItem: ShopItem) {
-        TODO("Not yet implemented")
+        shopList.remove(shopItem)
     }
 
     override fun editeShopItem(shopItem: ShopItem) {
-        TODO("Not yet implemented")
+        val item = getShopItem(shopItem.id)
+        val shopItem = item.copy(isEnabled = !shopItem.isEnabled)
+        shopList.add(shopItem)
     }
 
     override fun getShopItem(shopItemId: Int): ShopItem {
-        TODO("Not yet implemented")
+        return shopList.find { it.id == shopItemId } ?: throw Exception("this id,not found")
     }
 
     override fun getShopList(): LiveData<List<ShopItem>> {
-        TODO("Not yet implemented")
+        updateLD()
+        return shopListLd
+    }
+
+    fun updateLD() {
+        shopListLd.value = shopList.toList()
     }
 }
