@@ -4,33 +4,39 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myproject101.domain.ShopItem
 import com.example.myproject101.domain.ShopListRepository
+import kotlin.random.Random
 
-class ShopItemRepositoryImpl : ShopListRepository {
-    private val shopList = mutableSetOf<ShopItem>()
+object ShopItemRepositoryImpl : ShopListRepository {
+
+    //private val shopList = sortedSetOf(compareBy<ShopItem> { it.id })
+    private val shopList = sortedSetOf(compareBy(ShopItem::id))
     var autoIncrementId = 0
     private val shopListLd = MutableLiveData<List<ShopItem>>()
 
     init {
-        for(i in 0..1000){
-            val item = ShopItem(name = "Солфетки",i,isEnabled = true)
-            shopList.add(item)
+        for (i in 0..3000) {
+            var item = ShopItem(name = "Name + $i", i, isEnabled = Random.nextBoolean() )
+            addShopItem(item)
         }
     }
+
     override fun addShopItem(shopItem: ShopItem) {
         if (shopItem.id == ShopItem.UNDEFINED_ID) {
             shopItem.id = autoIncrementId++
         }
         shopList.add(shopItem)
+        updateLD()
     }
 
     override fun deleteShopItem(shopItem: ShopItem) {
         shopList.remove(shopItem)
+        updateLD()
     }
 
     override fun editeShopItem(shopItem: ShopItem) {
-        val item = getShopItem(shopItem.id)
-        val shopItem =item.copy(isEnabled = !shopItem.isEnabled)
-        shopList.add(shopItem)
+        val oldElement = getShopItem(shopItem.id)
+        deleteShopItem(oldElement)
+        addShopItem(shopItem)
     }
 
     override fun getShopItem(shopItemId: Int): ShopItem {
@@ -38,9 +44,11 @@ class ShopItemRepositoryImpl : ShopListRepository {
     }
 
     override fun getShopList(): LiveData<List<ShopItem>> {
-         return shopListLd
+        updateLD()
+        return shopListLd
     }
-    fun updateLD(){
+
+    fun updateLD() {
         shopListLd.value = shopList.toList()
     }
 }

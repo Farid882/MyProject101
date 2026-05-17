@@ -1,7 +1,28 @@
 package com.example.myproject101.presentation
 
 import androidx.lifecycle.ViewModel
+import com.example.myproject101.data.ShopItemRepositoryImpl
+import com.example.myproject101.data.ShopItemRepositoryImpl.getShopItem
+import com.example.myproject101.domain.AddShopItemUseCase
+import com.example.myproject101.domain.DeleteShopItemUseCase
+import com.example.myproject101.domain.EditeShopItemUseCase
+import com.example.myproject101.domain.GetShopItemUseCase
+import com.example.myproject101.domain.GetShopListUseCase
+import com.example.myproject101.domain.ShopItem
 
 class MainViewModel : ViewModel() {
+    private val repository= ShopItemRepositoryImpl
+    private val addShopItem= AddShopItemUseCase(repository)
+    private val deleteShopItem= DeleteShopItemUseCase(repository)
+    private val editeShopItem= EditeShopItemUseCase(repository)
+    private val getShopItem= GetShopItemUseCase(repository)
+    private val getShopList= GetShopListUseCase(repository)
+
+    val shopList = getShopList.getShopList()
+
+    fun changeEnableState(shopItem: ShopItem){
+        val item = shopItem.copy(isEnabled=!shopItem.isEnabled)
+        editeShopItem.editeShopItem(item)
+    }
 
 }
