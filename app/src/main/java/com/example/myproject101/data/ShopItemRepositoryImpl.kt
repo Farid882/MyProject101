@@ -15,7 +15,7 @@ object ShopItemRepositoryImpl : ShopListRepository {
 
     init {
         for (i in 0..3000) {
-            var item = ShopItem(name = "Name + $i", i, isEnabled = Random.nextBoolean() )
+            var item = ShopItem(name = "Name ", i, isEnabled = Random.nextBoolean() )
             addShopItem(item)
         }
     }
