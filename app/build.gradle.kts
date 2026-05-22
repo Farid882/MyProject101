@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.myproject101"
-        minSdk = 25
-        targetSdk = 36
+        minSdk = 27
+        targetSdk = 36.1.toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -33,11 +33,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildToolsVersion = "36.1.0"
+
+    buildFeatures {
+        viewBinding =true }
 }
 
 dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.cardview)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)

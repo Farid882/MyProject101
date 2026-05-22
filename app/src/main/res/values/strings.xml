@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">MyProject101</string>
-    <string name="name">Name</string>
+    <string name="name">name</string>
     <string name="_1">1</string>
+    <string name="hint">hint</string>
+    <string name="count">count</string>
+    <string name="add_new_item">add new item</string>
+    <string name="save">Save</string>
 </resources>

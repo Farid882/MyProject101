@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myproject101.domain.ShopItem
 import com.example.myproject101.domain.ShopListRepository
+import kotlin.random.Random
 
 object ShopItemRepositoryImpl : ShopListRepository {
     //private val shopList = sortedSetOf<ShopItem>({ o1, o2 -> o1.id.compareTo(o2.id) })
@@ -12,9 +13,9 @@ object ShopItemRepositoryImpl : ShopListRepository {
     private val shopListLd = MutableLiveData<List<ShopItem>>()
 
     init {
-        for (i in 0..1000) {
-            val item = ShopItem(name = "Name", i, isEnabled = true)
-            shopList.add(item)
+        for (i in 0..3000) {
+            var item = ShopItem(name = "Name ", i, isEnabled = Random.nextBoolean() )
+            addShopItem(item)
         }
     }
 
@@ -23,16 +24,18 @@ object ShopItemRepositoryImpl : ShopListRepository {
             shopItem.id = autoIncrementId++
         }
         shopList.add(shopItem)
+        updateLD()
     }
 
     override fun deleteShopItem(shopItem: ShopItem) {
         shopList.remove(shopItem)
+        updateLD()
     }
 
     override fun editeShopItem(shopItem: ShopItem) {
-        val item = getShopItem(shopItem.id)
-        val shopItem = item.copy(isEnabled = !shopItem.isEnabled)
-        shopList.add(shopItem)
+        val oldElement = getShopItem(shopItem.id)
+        deleteShopItem(oldElement)
+        addShopItem(shopItem)
     }
 
     override fun getShopItem(shopItemId: Int): ShopItem {
