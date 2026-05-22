@@ -1,5 +1,7 @@
 package com.example.myproject101.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myproject101.data.ShopItemRepositoryImpl
 import com.example.myproject101.data.ShopItemRepositoryImpl.getShopItem
@@ -24,5 +26,15 @@ class MainViewModel : ViewModel() {
         val item = shopItem.copy(isEnabled=!shopItem.isEnabled)
         editeShopItem.editeShopItem(item)
     }
+
+    private val repository = ShopItemRepositoryImpl
+    private val getShopList = GetShopListUseCase(repository)
+    private val editeShopItemUseCase = EditeShopItemUseCase(repository)
+    private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
+
+    val _shopList: LiveData<List<ShopItem>>
+        get() = shopList
+
+    private val shopList = getShopList.getShopList()
 
 }
