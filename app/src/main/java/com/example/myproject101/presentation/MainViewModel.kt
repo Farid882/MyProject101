@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myproject101.data.ShopItemRepositoryImpl
-import com.example.myproject101.data.ShopItemRepositoryImpl.getShopItem
 import com.example.myproject101.domain.AddShopItemUseCase
 import com.example.myproject101.domain.DeleteShopItemUseCase
 import com.example.myproject101.domain.EditeShopItemUseCase
@@ -20,21 +19,22 @@ class MainViewModel : ViewModel() {
     private val getShopItem= GetShopItemUseCase(repository)
     private val getShopList= GetShopListUseCase(repository)
 
-    val shopList = getShopList.getShopList()
-
+    private val _shopList= MutableLiveData<List<ShopItem>>()
+    // Публичная неизменяемая LiveData для наблюдения извне
+    val shopList: LiveData<List<ShopItem>> = _shopList
+    init {
+        // Загружаем список при создании ViewModel
+        loadShopList()
+    }
     fun changeEnableState(shopItem: ShopItem){
         val item = shopItem.copy(isEnabled=!shopItem.isEnabled)
         editeShopItem.editeShopItem(item)
+        loadShopList()
     }
 
-    private val repository = ShopItemRepositoryImpl
-    private val getShopList = GetShopListUseCase(repository)
-    private val editeShopItemUseCase = EditeShopItemUseCase(repository)
-    private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
-
-    val _shopList: LiveData<List<ShopItem>>
-        get() = shopList
-
-    private val shopList = getShopList.getShopList()
-
+    private fun loadShopList() {
+        getShopList.getShopList().observeForever { list ->
+            _shopList.value = list
+        }
+    }
 }
