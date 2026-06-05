@@ -11,12 +11,13 @@ import com.example.myproject101.R
 import com.example.myproject101.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private val shopListAdapter : ShopListAdapter by lazy{ShopListAdapter()}
+
+    private val shopListAdapter: ShopListAdapter by lazy { ShopListAdapter() }
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel._shopList.observe(this){
+        viewModel.shopList.observe(this){
             Log.d("MainActivity",it.toString())
         }
         enableEdgeToEdge()
