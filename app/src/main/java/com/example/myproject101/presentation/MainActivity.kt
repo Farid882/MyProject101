@@ -17,9 +17,6 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.shopList.observe(this){
-            Log.d("MainActivity",it.toString())
-        }
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -40,10 +37,10 @@ class MainActivity : AppCompatActivity() {
             adapter = shopListAdapter
             setHasFixedSize(true) // для улучшения производительности
         }
-        shopListAdapter.onsetClickListener={
+        shopListAdapter.onShopItemClickListener={
             Log.i( "onClick", it.name)
         }
-        shopListAdapter.setOnlongClickListener={
+        shopListAdapter.onShopItemLongClickListener={
             viewModel.changeEnableState(it);
         }
     }
