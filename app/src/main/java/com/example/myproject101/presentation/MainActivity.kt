@@ -20,27 +20,35 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        recyclerViewSetup()  // ← добавьте эту строку
+        recyclerViewSetup()
         viewModel.shopList.observe(this) {
             Log.d("FootBall", it.toString())
             shopListAdapter.submitList(it)  // ← добавьте эту строку
         }
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.save_button)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
     }
-    fun recyclerViewSetup(){
+
+    fun recyclerViewSetup() {
         with(binding.myRecycleView) {
             adapter = shopListAdapter
-            setHasFixedSize(true) // для улучшения производительности
+            recycledViewPool.setMaxRecycledViews(
+                ShopListAdapter.VIEW_TYPE_ENABLED,
+                ShopListAdapter.MAX_POOL_SIZE
+            )
+            recycledViewPool.setMaxRecycledViews(
+                ShopListAdapter.VIEW_TYPE_DISABLED,
+                ShopListAdapter.MAX_POOL_SIZE
+            )
         }
-        shopListAdapter.onShopItemClickListener={
-            Log.i( "onClick", it.name)
+        shopListAdapter.onShopItemClickListener = {
+            Log.i("onClick", it.name)
         }
-        shopListAdapter.onShopItemLongClickListener={
+        shopListAdapter.onShopItemLongClickListener = {
             viewModel.changeEnableState(it);
         }
     }
