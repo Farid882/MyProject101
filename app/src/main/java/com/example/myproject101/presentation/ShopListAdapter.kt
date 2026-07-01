@@ -1,5 +1,6 @@
 package com.example.myproject101.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -18,6 +19,9 @@ class ShopListAdapter : ListAdapter<ShopItem, RecyclerView.ViewHolder>(
         parent: ViewGroup,
         viewType: Int,
     ): RecyclerView.ViewHolder {
+
+
+        Log.d("onCreateViewHolder", "onCreateViewHolder: ${++count}")
         val layout = when (viewType) {
             VIEW_TYPE_ENABLED -> R.layout.shop_item_enabled
             VIEW_TYPE_DISABLED -> R.layout.shop_item_disabled
@@ -62,5 +66,7 @@ class ShopListAdapter : ListAdapter<ShopItem, RecyclerView.ViewHolder>(
     companion object {
         const val VIEW_TYPE_ENABLED = 101
         const val VIEW_TYPE_DISABLED = 701
+        const val MAX_POOL_SIZE = 30
+        var count = 0
     }
 }

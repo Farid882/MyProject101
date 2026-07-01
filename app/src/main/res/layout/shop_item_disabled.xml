@@ -15,7 +15,7 @@
         android:id="@+id/ll_disabled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DF8C8C"
+        android:background="#C0A6A6"
         android:padding="4dp">
 
         <TextView
