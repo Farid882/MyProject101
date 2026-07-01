@@ -6,4 +6,5 @@
     <string name="save">Save</string>
     <string name="hint">Name</string>
     <string name="enter_a_name">Name</string>
+    <string name="name">name</string>
 </resources>

@@ -13,7 +13,6 @@
         android:theme="@style/Theme.MyProject101">
         <activity
             android:name=".presentation.ShopItemActivity"
-            android:exported="false"
             android:theme="@style/Theme.MyProject101"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -25,10 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ShopItemActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
