@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         recyclerViewSetup()
+        addItemClick()
         viewModel.shopList.observe(this) {
             Log.d("FootBall", it.toString())
             shopListAdapter.submitList(it)  // ← добавьте эту строку
@@ -46,10 +47,20 @@ class MainActivity : AppCompatActivity() {
             )
         }
         shopListAdapter.onShopItemClickListener = {
-            Log.i("onClick", it.name)
+            Log.i("onClick", "edit mode")
+            val intent = ShopItemActivity.newIntentEditItem(this,it.id)
+            startActivity(intent)
         }
         shopListAdapter.onShopItemLongClickListener = {
             viewModel.changeEnableState(it);
+        }
+    }
+
+    fun addItemClick() {
+        binding.btnAddShopItem.setOnClickListener {
+            Log.d("onClick","add mode")
+            val intent = ShopItemActivity.newIntentAddItem(this)
+            startActivity(intent)
         }
     }
 }
