@@ -57,7 +57,7 @@ class ShopItemViewModel : ViewModel() {
             _shopItem.value?.let {
                 val item = it.copy(name = name, count = count)
                 editShopItemUseCase.editeShopItem(item)
-                finishWork()
+                //finishWork()
             }
 
         }

@@ -8,4 +8,6 @@
     <string name="enter_a_name">Name</string>
     <string name="name">name</string>
     <string name="add_new_card">add new card</string>
+    <string name="error_input_count">error_input_count</string>
+    <string name="error_input_name">create_input_name\n</string>
 </resources>

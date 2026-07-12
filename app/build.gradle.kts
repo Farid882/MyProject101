@@ -10,10 +10,10 @@ android {
         }
     }
 
-    defaultConfig {
+        defaultConfig {
         applicationId = "com.example.myproject101"
         minSdk = 27
-        targetSdk = 36.1.toInt()
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -36,7 +36,8 @@ android {
     buildToolsVersion = "36.1"
 
     buildFeatures {
-        viewBinding =true }
+        viewBinding = true
+    }
 }
 
 dependencies {

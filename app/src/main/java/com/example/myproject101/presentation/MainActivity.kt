@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         shopListAdapter.onShopItemLongClickListener = {
-            viewModel.changeEnableState(it);
+            viewModel.changeEnableState(it)
         }
     }
 
