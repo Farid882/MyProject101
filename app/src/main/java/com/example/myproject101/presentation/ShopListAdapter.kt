@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject101.R
+import com.example.myproject101.databinding.ActivityShopItemBinding
 import com.example.myproject101.domain.ShopItem
 
 
@@ -14,12 +15,12 @@ class ShopListAdapter : ListAdapter<ShopItem, RecyclerView.ViewHolder>(
 ) {
     var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
     var onShopItemClickListener: ((ShopItem) -> Unit)? = null
-
+    private lateinit var binding: ActivityShopItemBinding
+    var count = 0
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): RecyclerView.ViewHolder {
-
 
         Log.d("onCreateViewHolder", "onCreateViewHolder: ${++count}")
         val layout = when (viewType) {
@@ -45,11 +46,11 @@ class ShopListAdapter : ListAdapter<ShopItem, RecyclerView.ViewHolder>(
 
         viewHolder.tv_name.text = shopItem.name
         viewHolder.tv_count.text = shopItem.count.toString()
-        holder.itemView.setOnLongClickListener {
+        viewHolder.itemView.setOnLongClickListener {
             onShopItemLongClickListener?.invoke(shopItem)
             true
         }
-        holder.itemView.setOnClickListener {
+        viewHolder.itemView.setOnClickListener {
             onShopItemClickListener?.invoke(shopItem)
         }
     }
@@ -67,6 +68,6 @@ class ShopListAdapter : ListAdapter<ShopItem, RecyclerView.ViewHolder>(
         const val VIEW_TYPE_ENABLED = 101
         const val VIEW_TYPE_DISABLED = 701
         const val MAX_POOL_SIZE = 30
-        var count = 0
+        //var count = 0
     }
 }

@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("FootBall", it.toString())
             shopListAdapter.submitList(it)  // ← добавьте эту строку
         }
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.save_button)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

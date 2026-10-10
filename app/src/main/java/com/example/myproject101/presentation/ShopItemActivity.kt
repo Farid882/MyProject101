@@ -72,7 +72,7 @@ class ShopItemActivity : AppCompatActivity() {
     private fun launchRightMode() {
         when (screenMode) {
             MODE_EDIT -> launchEditMode()
-            MODE_ADD -> launchAddMode()
+            MODE_ADD -> launchSaveMode()
         }
     }
 
@@ -138,7 +138,7 @@ class ShopItemActivity : AppCompatActivity() {
 
     }
 
-    private fun launchAddMode() {
+    private fun launchSaveMode() {
         buttonSave.setOnClickListener {
             viewModel.addShopItem(
                 edName.text?.toString(),
